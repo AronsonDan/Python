@@ -160,5 +160,33 @@ class TestInEqualityProtocol(unittest.TestCase):
         s = SortedSet([4, 5, 6])
         self.assertFalse(s != s)
 
+    def test_reversed(self):
+        s = SortedSet([1,2,3,4])
+        r = reversed(s)
+        self.assertEqual(next(r), 4)
+        self.assertEqual(next(r), 3)
+        self.assertEqual(next(r), 2)
+        self.assertEqual(next(r), 1)
+        with self.assertRaises(StopIteration):
+            next(r)
+
+    def test_index_positive(self):
+        s = SortedSet([1, 5, 8, 9])
+        self.assertEqual(s.index(8), 2)
+
+    def test_index_negative(self):
+        s = SortedSet([1, 5, 8, 9])
+        with self.assertRaises(ValueError):
+            s.index(15)
+
+    def test_zero_count(self):
+        s = SortedSet([1, 4, 5, 9])
+        self.assertEqual(s.count(11), 0)
+
+    def test_zero_count(self):
+        s = SortedSet([1, 4, 5, 9])
+        self.assertEqual(s.count(9), 1)
+
+
 if __name__ == 'main':
     unittest.main
